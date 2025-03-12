@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'CustomFont';
+  src: url('/fonts/your-font-regular.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CustomFont';
+  src: url('/fonts/your-font-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Editorial New';
+  src: url('../fonts/editorial-new-font/EditorialNew-Ultralight.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Editorial New';
+  src: url('../fonts/editorial-new-font/EditorialNew-UltralightItalic.woff2') format('woff2');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* 使用字體的範例 */
+.custom-font {
+  font-family: 'CustomFont', sans-serif;
+} 

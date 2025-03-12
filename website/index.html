@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yitiann Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Babylonica&family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Niconne&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Splash&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/fonts.css">
+    <link rel="stylesheet" href="./styles/dynamic-frame.css">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        body {
+            background-color: #141414;
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'CustomFont', sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 2rem;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+        }
+
+        .left-content {
+            width: 100%;
+            overflow-y: auto;
+            padding-right: 1rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+        }
+
+        .left-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .left-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .left-content::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        @media (min-width: 768px) {
+            .left-content {
+                width: 260px;
+                flex-shrink: 0;
+            }
+        }
+
+        .brand-title {
+            font-size: 7rem;
+            font-weight: 700;
+            font-family: "Tangerine", cursive;
+            font-style: normal;
+            letter-spacing: -0.05em;
+            line-height: 75%;
+            margin-bottom: 4rem;
+        }
+
+        .brand-title span {
+            display: block;
+            padding-left: 2rem;
+        }
+
+        .description {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.5);
+            max-width: 300px;
+            font-family: "Kantumruy Pro", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            line-height: 1.6;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 100%;
+            margin: 1.5rem 0;
+        }
+
+        .right-content {
+            width: 100%;
+            height: 60vh;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .right-content {
+                height: 100%;
+                flex-grow: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Content -->
+        <div class="left-content">
+            <div>
+                <h1 class="brand-title">
+                    Yitiann<br>
+                    <span>Portfolio</span>
+                </h1>
+                <div class="description">
+                    <div>
+                        <div class="divider"></div>
+                        <p>
+                            Welcome to yitiann's portfolio. I hope you have fun and enjoy it. Everyone can draw a picture for me in the contact me area.
+                            <br>
+                            <br>
+                            Welcome to yitiann's portfolio. I hope you have fun and enjoy it. Everyone can draw a picture for me in the contact me area.
+                            <br>
+                            <br>
+                            Welcome to yitiann's portfolio. I hope you have fun and enjoy it. Everyone can draw a picture for me in the contact me area.
+                        </p>
+                        <div class="divider"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Content -->
+        <div class="right-content" id="dynamic-frame">
+            <!-- 動態內容將通過 JavaScript 載入 -->
+        </div>
+    </div>
+
+    <script src="./js/dynamic-frame.js"></script>
+</body>
+</html> 
