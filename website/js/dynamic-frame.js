@@ -16,6 +16,7 @@ const initialFrames = [
     borderSize: 30,
     autoplayMode: "all",
     isHovered: false,
+    url: "/newpage1", // 點擊後要開啟的新頁面
   },
   {
     id: 2,
@@ -28,7 +29,7 @@ const initialFrames = [
     borderThickness: 0,
     borderSize: 30,
     autoplayMode: "all",
-    isHovered: false,
+    url: "/newpage2", // 點擊後要開啟的新頁面
   },
   {
     id: 3,
@@ -41,7 +42,7 @@ const initialFrames = [
     borderThickness: 0,
     borderSize: 30,
     autoplayMode: "all",
-    isHovered: false,
+    url: "/newpage3", // 點擊後要開啟的新頁面
   },
   {
     id: 4,
@@ -54,7 +55,7 @@ const initialFrames = [
     borderThickness: 0,
     borderSize: 30,
     autoplayMode: "all",
-    isHovered: false,
+    url: "/newpage4", // 點擊後要開啟的新頁面
   },
   {
     id: 5,
@@ -67,7 +68,7 @@ const initialFrames = [
     borderThickness: 0,
     borderSize: 30,
     autoplayMode: "all",
-    isHovered: false,
+    url: "/newpage5", // 點擊後要開啟的新頁面
   },
   {
     id: 6,
@@ -80,7 +81,7 @@ const initialFrames = [
     borderThickness: 0,
     borderSize: 30,
     autoplayMode: "all",
-    isHovered: false,
+    url: "/newpage6", // 點擊後要開啟的新頁面
   },
   {
     id: 7,
@@ -93,7 +94,7 @@ const initialFrames = [
     borderThickness: 0,
     borderSize: 30,
     autoplayMode: "all",
-    isHovered: false,
+    url: "/newpage7"
   },
   {
     id: 8,
@@ -106,7 +107,7 @@ const initialFrames = [
     borderThickness: 0,
     borderSize: 30,
     autoplayMode: "all",
-    isHovered: false,
+    url: "/newpage8", // 點擊後要開啟的新頁面
   },
   {
     id: 9,
@@ -119,7 +120,7 @@ const initialFrames = [
     borderThickness: 0,
     borderSize: 30,
     autoplayMode: "all",
-    isHovered: false,
+    url: "/newpage9", // 點擊後要開啟的新頁面
   }
 ];
 
@@ -192,9 +193,7 @@ class DynamicFrameLayout {
       
       if (isYouTube) {
         const iframe = document.createElement('iframe');
-        const videoId = frame.video.includes('youtu.be/') 
-          ? frame.video.split('youtu.be/')[1]
-          : frame.video.split('v=')[1];
+        const videoId = this.extractYouTubeId(frame.video);
         
         iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&fs=0`;
         iframe.width = '100%';
@@ -203,7 +202,7 @@ class DynamicFrameLayout {
         iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
         iframe.allowFullscreen = true;
         frameElement.appendChild(iframe);
-        frameElement.dataset.youtubeIframe = true;
+        frameElement.dataset.youtubeIframe = videoId;
       } else if (isImage) {
         const img = document.createElement('img');
         img.src = frame.video;
@@ -221,10 +220,8 @@ class DynamicFrameLayout {
     
     if (isYouTube) {
       const iframe = document.createElement('iframe');
-      // 從 URL 提取 video ID
-      const videoId = frame.video.includes('youtu.be/') 
-        ? frame.video.split('youtu.be/')[1]
-        : frame.video.split('v=')[1];
+      // 從 URL 提取 video ID，修正提取邏輯
+      const videoId = this.extractYouTubeId(frame.video);
       
       // 第一個影片使用特定時間範圍
       const timeParams = videoId === 'vOxPTRxTUDs' ? '&start=28&end=58' : '';
@@ -238,7 +235,7 @@ class DynamicFrameLayout {
       frameElement.appendChild(iframe);
       
       // 儲存 iframe 參考以便後續控制
-      frameElement.dataset.youtubeIframe = true;
+      frameElement.dataset.youtubeIframe = videoId;
     } else if (isImage) {
       const img = document.createElement('img');
       img.src = frame.video;
@@ -267,6 +264,15 @@ class DynamicFrameLayout {
     document.querySelectorAll('.frame').forEach(frame => {
       frame.addEventListener('mouseenter', () => this.handleFrameHover(frame));
       frame.addEventListener('mouseleave', () => this.handleFrameLeave(frame));
+      
+      // 添加點擊事件處理
+      frame.addEventListener('click', () => {
+        const frameId = parseInt(frame.dataset.frameId);
+        const frameData = this.frames.find(f => f.id === frameId);
+        if (frameData && frameData.url) {
+          window.location.href = frameData.url;
+        }
+      });
     });
   }
 
@@ -307,6 +313,26 @@ class DynamicFrameLayout {
       grid.style.gridTemplateRows = 'repeat(3, 1fr)';
       grid.style.gridTemplateColumns = 'repeat(3, 1fr)';
     }
+  }
+
+  // 添加一個更穩健的YouTube ID提取方法
+  extractYouTubeId(url) {
+    if (!url) return '';
+    // 處理短網址 youtu.be
+    if (url.includes('youtu.be/')) {
+      return url.split('youtu.be/')[1].split(/[?&#]/)[0];
+    }
+    // 處理標準網址 youtube.com/watch?v=
+    else if (url.includes('youtube.com/watch')) {
+      const urlParams = new URLSearchParams(url.split('?')[1]);
+      return urlParams.get('v');
+    }
+    // 處理嵌入網址 youtube.com/embed/
+    else if (url.includes('youtube.com/embed/')) {
+      return url.split('youtube.com/embed/')[1].split(/[?&#]/)[0];
+    }
+    // 如果無法解析，直接返回原始字符串 (假設它可能是ID本身)
+    return url;
   }
 }
 

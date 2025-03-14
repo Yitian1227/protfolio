@@ -1,0 +1,110 @@
+/* 亮色模式基本樣式 */
+body.light-mode {
+    background-color: #f5f5f5;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+body.light-mode .description {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+body.light-mode .divider {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .control-label {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+body.light-mode .toggle {
+    background: #ccc;
+    box-shadow: inset 2px 2px 5px #999, inset -2px -2px 5px #eee;
+}
+
+body.light-mode .toggle.active {
+    background: #aaa;
+}
+
+body.light-mode .circle {
+    background: #fff;
+    box-shadow: 2px 2px 5px #999, -2px -2px 5px #eee;
+}
+
+/* 亮色模式下的影片框架和右側內容區域 */
+body.light-mode .right-content {
+    background-color: #f5f5f5;
+}
+
+body.light-mode .frame-grid {
+    background-color: #f5f5f5;
+}
+
+body.light-mode .frame {
+    background-color: #eaeaea;
+}
+
+body.light-mode .frame iframe {
+    background-color: #eaeaea;
+}
+
+/* 亮色模式下的框架邊緣和角落 */
+body.light-mode .frame-corner,
+body.light-mode .frame-edge-h,
+body.light-mode .frame-edge-v {
+    filter: invert(1) brightness(0.9);
+}
+
+/* 亮色模式下的項目頁面元素 */
+body.light-mode .header {
+    background-color: #f5f5f5;
+}
+
+body.light-mode .back-button {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    color: #333;
+}
+
+body.light-mode .back-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .page-title {
+    color: #333;
+}
+
+body.light-mode .content {
+    background-color: #f5f5f5;
+}
+
+body.light-mode .project-title {
+    color: #333;
+}
+
+body.light-mode .project-description {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+body.light-mode .detail-title {
+    color: rgba(0, 0, 0, 0.9);
+}
+
+body.light-mode .detail-content {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+body.light-mode .media-item {
+    background-color: #eaeaea;
+}
+
+body.light-mode .youtube-container {
+    background-color: #ddd;
+}
+
+body.light-mode .play-button {
+    background-color: rgba(200, 200, 200, 0.7);
+}
+
+/* 亮色模式下的切換開關樣式 */
+body.light-mode .video-control .control-label {
+    color: rgba(0, 0, 0, 0.7);
+} 

@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Babylonica&family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Niconne&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Splash&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/fonts.css">
     <link rel="stylesheet" href="./styles/dynamic-frame.css">
+    <link rel="stylesheet" href="./styles/theme-styles.css">
     <style>
         html, body {
             margin: 0;
@@ -47,7 +48,7 @@
 
         .left-content {
             width: 100%;
-            overflow-y: auto;
+            overflow: visible;
             padding-right: 1rem;
             scrollbar-width: thin;
             scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
@@ -110,6 +111,7 @@
             width: 100%;
             height: 60vh;
             overflow: hidden;
+            position: relative;
         }
 
         @media (min-width: 768px) {
@@ -117,6 +119,210 @@
                 height: 100%;
                 flex-grow: 1;
             }
+        }
+        
+        .frame {
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+        }
+
+        /* 影片控制開關樣式 */
+        .video-control {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        /* 按鈕容器樣式 */
+        .buttons-container {
+            display: flex;
+            flex-direction: row;
+            gap: 50px;
+            margin: 15px 0;
+            justify-content: center;
+            padding: 20px;
+            overflow: visible;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .control-label {
+            margin-right: 15px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .toggle { 
+            width: 80px;
+            height: 80px;
+            border-radius: 50%; 
+            background: none;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            position: relative;
+            z-index: 5;
+            font-family: 'Kantumruy Pro', sans-serif;
+            font-size: 0.9rem;
+        }
+        
+        .toggle:hover {
+            border-color: white;
+        }
+        
+        .toggle.active { 
+            background-color: white;
+            color: #000;
+            border-color: white;
+        }
+        
+        /* 漣漪動畫 */
+        .toggle::before,
+        .toggle::after,
+        .toggle .ripple-circle {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background-color: transparent;
+            border: 2px solid white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .toggle::before {
+            animation: none;
+        }
+        
+        .toggle::after {
+            animation: none;
+        }
+        
+        .toggle .ripple-circle {
+            animation: none;
+        }
+        
+        .toggle:hover::before {
+            animation: ripple 2s ease-out 0s infinite;
+        }
+        
+        .toggle:hover::after {
+            animation: ripple 2s ease-out 0.5s infinite;
+        }
+        
+        .toggle:hover .ripple-circle {
+            animation: ripple 2s ease-out 1s infinite;
+        }
+        
+        .toggle.active::before {
+            animation: ripple 2s ease-out 0s infinite;
+        }
+        
+        .toggle.active::after {
+            animation: ripple 2s ease-out 0.5s infinite;
+        }
+        
+        .toggle.active .ripple-circle {
+            animation: ripple 2s ease-out 1s infinite;
+        }
+        
+        @keyframes ripple {
+            0% {
+                opacity: 0.6;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(2.5);
+            }
+        }
+
+        /* 亮色模式樣式 */
+        body.light-mode {
+            background-color: #f5f5f5;
+            color: rgba(0, 0, 0, 0.8);
+        }
+        
+        body.light-mode .description {
+            color: rgba(0, 0, 0, 0.7);
+        }
+        
+        body.light-mode .divider {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode .control-label {
+            color: rgba(0, 0, 0, 0.7);
+        }
+        
+        body.light-mode .toggle {
+            border-color: rgba(0, 0, 0, 0.3);
+            color: rgba(0, 0, 0, 0.8);
+            background: none;
+        }
+        
+        body.light-mode .toggle:hover {
+            border-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        body.light-mode .toggle.active {
+            background-color: #333;
+            color: white;
+            border-color: #333;
+        }
+        
+        body.light-mode .toggle::before,
+        body.light-mode .toggle::after,
+        body.light-mode .toggle .ripple-circle {
+            border-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        body.light-mode .toggle.active::before,
+        body.light-mode .toggle.active::after,
+        body.light-mode .toggle.active .ripple-circle {
+            border-color: #333;
+        }
+        
+        /* 亮色模式下的影片框架和右側內容區域 */
+        body.light-mode .right-content {
+            background-color: #f5f5f5;
+        }
+        
+        body.light-mode .frame-grid {
+            background-color: #f5f5f5;
+        }
+        
+        body.light-mode .frame {
+            background-color: #eaeaea;
+        }
+        
+        body.light-mode .frame iframe {
+            background-color: #eaeaea;
+        }
+        
+        /* 亮色模式下的框架邊緣和角落 */
+        body.light-mode .frame-corner,
+        body.light-mode .frame-edge-h,
+        body.light-mode .frame-edge-v {
+            filter: invert(1) brightness(0.9);
         }
     </style>
 </head>
@@ -135,12 +341,24 @@
                         <p>
                             Welcome to yitiann's portfolio. I hope you have fun and enjoy it. Everyone can draw a picture for me in the contact me area.
                             <br>
-                            <br>
-                            Welcome to yitiann's portfolio. I hope you have fun and enjoy it. Everyone can draw a picture for me in the contact me area.
-                            <br>
-                            <br>
-                            Welcome to yitiann's portfolio. I hope you have fun and enjoy it. Everyone can draw a picture for me in the contact me area.
+                            
                         </p>
+                        
+                        <!-- 控制按鈕容器 - 橫向排列 -->
+                        <div class="buttons-container">
+                            <!-- 影片播放/暫停控制開關 -->
+                            <div class="toggle" id="video-toggle">
+                                Play
+                                <span class="ripple-circle"></span>
+                            </div>
+                            
+                            <!-- 黑白模式控制開關 -->
+                            <div class="toggle" id="theme-toggle">
+                                Day
+                                <span class="ripple-circle"></span>
+                            </div>
+                        </div>
+                        
                         <div class="divider"></div>
                     </div>
                 </div>
@@ -154,5 +372,169 @@
     </div>
 
     <script src="./js/dynamic-frame.js"></script>
+    <script src="./js/theme-controller.js"></script>
+    <script>
+        // 初始化控制開關
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoToggle = document.getElementById('video-toggle');
+            let youtubeFrames = []; // 用於存儲所有YouTube iframe
+            
+            // 添加影片開關點擊事件
+            if (videoToggle) {
+                // 預設為啟用（自動播放）
+                videoToggle.classList.add('active');
+                videoToggle.textContent = 'Pause';
+                videoToggle.appendChild(document.createElement('span')).className = 'ripple-circle';
+                
+                videoToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    const isPlaying = this.classList.contains('active');
+                    
+                    // 更新按鈕文字
+                    if (isPlaying) {
+                        this.textContent = 'Pause';
+                    } else {
+                        this.textContent = 'Play';
+                    }
+                    
+                    // 重新添加ripple元素
+                    this.appendChild(document.createElement('span')).className = 'ripple-circle';
+                    
+                    // 控制所有影片的播放狀態
+                    controlAllVideos(isPlaying);
+                });
+            }
+            
+            // 控制所有影片的函數
+            function controlAllVideos(play) {
+                // 獲取所有iframe（YouTube影片）
+                const iframes = document.querySelectorAll('iframe');
+                
+                iframes.forEach(iframe => {
+                    try {
+                        const command = play ? 'playVideo' : 'pauseVideo';
+                        iframe.contentWindow.postMessage(`{"event":"command","func":"${command}","args":""}`, '*');
+                    } catch (e) {
+                        console.log('無法控制影片:', e);
+                    }
+                });
+            }
+            
+            // 等待dynamic-frame.js初始化完成
+            setTimeout(() => {
+                // 獲取開關狀態
+                const isAutoplayEnabled = videoToggle ? videoToggle.classList.contains('active') : true;
+                
+                // 確保所有框架中的YouTube影片都啟用了API控制
+                const frameElements = document.querySelectorAll('.frame');
+                
+                frameElements.forEach(frame => {
+                    const iframe = frame.querySelector('iframe');
+                    if (iframe) {
+                        // 保存原始src
+                        const originalSrc = iframe.src;
+                        
+                        // 檢查是否已經啟用API
+                        if (!originalSrc.includes('enablejsapi=1')) {
+                            // 添加enablejsapi參數
+                            let newSrc = originalSrc;
+                            if (newSrc.includes('?')) {
+                                newSrc += '&enablejsapi=1';
+                            } else {
+                                newSrc += '?enablejsapi=1';
+                            }
+                            
+                            // 更新autoplay參數
+                            if (newSrc.includes('autoplay=1') && !isAutoplayEnabled) {
+                                newSrc = newSrc.replace('autoplay=1', 'autoplay=0');
+                            }
+                            
+                            iframe.src = newSrc;
+                        }
+                        
+                        youtubeFrames.push(iframe);
+                    }
+                });
+                
+                // 特殊處理框架7，若已經被我們之前的代碼修改過
+                const frame7 = document.querySelector('[data-frame-id="7"]');
+                if (frame7 && frame7.innerHTML === '') {
+                    // 添加YouTube影片，修正ID提取
+                    const iframe = document.createElement('iframe');
+                    // 啟用API控制
+                    iframe.src = "https://www.youtube.com/embed/7mc_FYVJmzE?enablejsapi=1&autoplay=" + (isAutoplayEnabled ? "1" : "0") + "&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&fs=0&loop=1&playlist=7mc_FYVJmzE";
+                    iframe.id = "youtube-player";
+                    iframe.title = "YouTube video player";
+                    iframe.frameBorder = "0";
+                    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+                    iframe.allowFullscreen = true;
+                    iframe.style.width = "100%";
+                    iframe.style.height = "100%";
+                    iframe.style.position = "absolute";
+                    iframe.style.top = "0";
+                    iframe.style.left = "0";
+                    
+                    // 添加到框架中
+                    frame7.appendChild(iframe);
+                    youtubeFrames.push(iframe);
+                    
+                    // 添加覆蓋層，用於跳轉
+                    const overlay = document.createElement('div');
+                    overlay.className = 'video-overlay';
+                    overlay.onclick = function() {
+                        window.location.href = '/newpage7';
+                    };
+                    frame7.appendChild(overlay);
+                    
+                    // 配置URL以便dynamic-frame.js的點擊處理
+                    if (typeof initialFrames !== 'undefined' && initialFrames) {
+                        const frame = initialFrames.find(f => f.id === 7);
+                        if (frame) frame.url = '/newpage7';
+                    }
+                }
+                
+                // 如果開關是關閉狀態，暫停所有影片
+                if (!isAutoplayEnabled) {
+                    // 稍微延遲以確保iframe已經完全載入
+                    setTimeout(() => {
+                        controlAllVideos(false);
+                    }, 1000);
+                }
+            }, 1000); // 增加等待時間確保dynamic-frame.js已經完全初始化
+        });
+
+        // 處理主題按鈕文字
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            
+            if (themeToggle) {
+                // 檢查當前主題設置更新文字
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'light') {
+                    themeToggle.textContent = 'Night';
+                } else {
+                    themeToggle.textContent = 'Day';
+                }
+                
+                // 重新添加ripple元素
+                themeToggle.appendChild(document.createElement('span')).className = 'ripple-circle';
+                
+                // 添加事件監聽器
+                themeToggle.addEventListener('click', function() {
+                    const isLightMode = this.classList.contains('active');
+                    
+                    // 更新按鈕文字
+                    if (isLightMode) {
+                        this.textContent = 'Night';
+                    } else {
+                        this.textContent = 'Day';
+                    }
+                    
+                    // 重新添加ripple元素
+                    this.appendChild(document.createElement('span')).className = 'ripple-circle';
+                });
+            }
+        });
+    </script>
 </body>
 </html> 
