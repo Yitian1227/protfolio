@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yitiann Portfolio - Project 8</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Babylonica&family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Niconne&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Splash&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/fonts.css">
+    <link rel="stylesheet" href="../styles/theme-styles.css">
+    <script src="../js/theme-controller.js"></script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        body {
+            background-color: #141414;
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            flex-direction: column;
+            font-family: 'Kantumruy Pro', sans-serif;
+        }
+
+        .header {
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-button {
+            background: none;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-family: 'Kantumruy Pro', sans-serif;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .back-button:hover {
+            background-color: white;
+            color: black;
+            border-color: white;
+        }
+
+        .back-button:hover::before,
+        .back-button:hover::after,
+        .back-button:hover .ripple-circle {
+            border-color: black;
+        }
+        
+        .back-button:active,
+        .back-button.active { 
+            background-color: white;
+            color: #000;
+            border-color: white;
+        }
+        
+        /* 漣漪動畫 */
+        .back-button::before,
+        .back-button::after,
+        .back-button .ripple-circle {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background-color: transparent;
+            border: 2px solid white; /* Night模式下為白色 */
+            opacity: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .back-button::before {
+            animation: none;
+        }
+        
+        .back-button::after {
+            animation: none;
+        }
+        
+        .back-button .ripple-circle {
+            animation: none;
+        }
+        
+        .back-button:hover::before {
+            animation: ripple 2s ease-out 0s infinite;
+        }
+        
+        .back-button:hover::after {
+            animation: ripple 2s ease-out 0.5s infinite;
+        }
+        
+        .back-button:hover .ripple-circle {
+            animation: ripple 2s ease-out 1s infinite;
+        }
+        
+        @keyframes ripple {
+            0% {
+                opacity: 0.6;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(2.5);
+            }
+        }
+
+        .page-title {
+            font-family: "Tangerine", cursive;
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .content {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+        .project-container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .project-header {
+            margin-bottom: 2rem;
+        }
+
+        .project-title {
+            font-family: "Tangerine", cursive;
+            font-size: 10rem;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            line-height: 75%;
+            margin: 0 0 1.5rem 0;
+        }
+
+        .project-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .project-media {
+            margin: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .media-item {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .media-item img {
+            width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* 亮色模式下的按鈕樣式 */
+        body.light-mode .back-button {
+            border: 2px solid rgba(0, 0, 0, 0.3);
+            color: rgba(0, 0, 0, 0.8);
+            background: none;
+        }
+        
+        body.light-mode .back-button:hover {
+            background-color: #333;
+            color: white;
+            border-color: #333;
+        }
+
+        body.light-mode .back-button:hover::before,
+        body.light-mode .back-button:hover::after,
+        body.light-mode .back-button:hover .ripple-circle {
+            border-color: black;
+        }
+        
+        body.light-mode .back-button:active,
+        body.light-mode .back-button.active {
+            background-color: #333;
+            color: white;
+            border-color: #333;
+        }
+        
+        body.light-mode .back-button::before,
+        body.light-mode .back-button::after,
+        body.light-mode .back-button .ripple-circle {
+            border-color: black;
+        }
+        
+        body.light-mode .back-button.active::before,
+        body.light-mode .back-button.active::after,
+        body.light-mode .back-button.active .ripple-circle {
+            border-color: black;
+        }
+
+        /* 夜間模式下的按鈕樣式 */
+        .back-button::before,
+        .back-button::after,
+        .back-button .ripple-circle {
+            border-color: white;
+        }
+
+        .back-button:hover::before,
+        .back-button:hover::after,
+        .back-button:hover .ripple-circle {
+            border-color: white;
+        }
+
+        .back-button.active::before,
+        .back-button.active::after,
+        .back-button.active .ripple-circle {
+            border-color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="back-button" onclick="window.location.href='/'">
+            HOME
+            <span class="ripple-circle"></span>
+        </button>
+        <h1 class="page-title">Yitiann Portfolio</h1>
+    </div>
+
+    <div class="content">
+        <div class="project-container">
+            <div class="project-header">
+                <h2 class="project-title">project8</h2>
+                <p class="project-description">
+                    Add a detailed description of your project here. This is a sample text that you can replace with real content based on your actual project.
+                    Detail the background, goals, challenges, and solutions of the project. Use multiple paragraphs to organize your content to ensure readers clearly understand the value of the project and your contribution.
+                </p>
+            </div>
+
+            <div class="project-media">
+                <div class="media-item">
+                    <img src="../path/to/your/image.jpg" alt="項目圖片描述">
+                </div>
+            </div>
+
+            <!-- 可以添加更多內容區塊 -->
+        </div>
+    </div>
+</body>
+</html> 
